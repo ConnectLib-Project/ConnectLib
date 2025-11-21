@@ -58,10 +58,10 @@ public class Application implements WebFluxConfigurer {
     public Mono<Void> startApplication() {
         return Mono.fromRunnable(() -> {
             SpringApplication app = new SpringApplication(Application.class);
-            app.setBannerMode(Banner.Mode.OFF);               // supprime le banner Spring
-            app.setLogStartupInfo(false);                     // désactive l'info de démarrage
+            app.setBannerMode(Banner.Mode.OFF);
+            app.setLogStartupInfo(false);
             Map<String, Object> props = new HashMap<>();
-            props.put("server.port", Dyn_Port()); // définit le port du serveur
+            props.put("server.port", Dyn_Port());
             props.put("logging.level.root", "OFF");
             app.setDefaultProperties(props);
             app.run();
