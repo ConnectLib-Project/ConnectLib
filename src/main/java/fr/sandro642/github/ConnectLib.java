@@ -67,6 +67,8 @@ public class ConnectLib {
             rlv = new RetrieveLastVersion();
             isInitialized = true;
 
+            StoreAndRetrieve().put(StoreAndRetrieve().IS_APP_RUNNING, false);
+
             rlv.isLatestVersion();
 
             HookManager().initHook(resourceType);
@@ -125,35 +127,6 @@ public class ConnectLib {
      */
     public Map<String, String> getRoutesMap() {
         return new HashMap<>(routes);
-    }
-
-    /**
-     * Check if the ConnectLib supports web services.
-     * This method starts the Spring application.
-     */
-    public void webServices() {
-        storeAndRetrieve.put(storeAndRetrieve.PORT, 3000);
-        SpringApp().startApplication().subscribe();
-    }
-
-    /**
-     * Check if the ConnectLib supports web services on a specific port with a dashboard name.
-     * This method starts the Spring application.
-     * @param port the port number to run the web services on
-     *             If port is 0, the default port 3000 will be used
-     * @param nameDashboard the name of the dashboard
-     */
-    public void webServices(int port, String nameDashboard) {
-        storeAndRetrieve.put(storeAndRetrieve.NAME_DASHBOARD, nameDashboard);
-
-        if (port == 0) {
-            storeAndRetrieve.put(storeAndRetrieve.PORT, 3000);
-        } else {
-            storeAndRetrieve.put(storeAndRetrieve.PORT, port);
-        }
-
-
-        SpringApp().startApplication().subscribe();
     }
 
     /**

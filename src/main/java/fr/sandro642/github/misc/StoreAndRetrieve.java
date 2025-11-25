@@ -21,6 +21,8 @@ public class StoreAndRetrieve {
     public final String URL_KEY = "baseUrl";
     public final String FILE_LOCATION_KEY = "fileLocation";
 
+    public final String IS_APP_RUNNING = "isAppRunning";
+
     public final String NAME_DASHBOARD = "nameDashboard";
     public final String PORT = String.valueOf(3000);
     public final String DYNAMIC_PORT = "dynamicPort";

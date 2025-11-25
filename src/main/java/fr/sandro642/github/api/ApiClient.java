@@ -77,7 +77,11 @@ public class ApiClient extends ApiFactory {
     public Mono<ApiFactory> callAPIGet(String routeName) {
         connectLib.Logger().INFO(connectLib.LangManager().getMessage(CategoriesType.APICLIENT_CLASS, "call.get", Map.of("routename", routeName)));
 
-        Request r = DataController.getInstance().createRequest(routeName, baseUrl);
+        AtomicReference<Request> requestRef = new AtomicReference<>();
+
+        if (connectLib.StoreAndRetrieve().get(connectLib.StoreAndRetrieve().IS_APP_RUNNING).equals(true)) {
+            requestRef.set(DataController.getInstance().createRequest(routeName, baseUrl));
+        }
 
         record ResponseData(int statusCode, String body) {}
 
@@ -93,14 +97,19 @@ public class ApiClient extends ApiFactory {
 
                     String newStatus = (responseData.statusCode() >= 200 && responseData.statusCode() < 300) ? "success" : "error";
                     try {
-                        DataController.getInstance().updateRequestStatus(r.getId(), newStatus);
+                        if (connectLib.StoreAndRetrieve().get(connectLib.StoreAndRetrieve().IS_APP_RUNNING).equals(true)) {
+                            Request r = requestRef.get();
+                            if (r != null) {
+                                DataController.getInstance().updateRequestStatus(r.getId(), newStatus);
+                            }
+                        }
                     } catch (Exception e) {
                         connectLib.Logger().CRITICAL(connectLib.LangManager().getMessage(CategoriesType.APICLIENT_CLASS, "general.error", Map.of("method", "GET", "exception", e.getMessage())));
                     }
                 })
                 .map(responseData -> {
                     apiFactory.setStatusCode(responseData.statusCode());
-                    apiFactory.parseFromRawJson(responseData.body);
+                    apiFactory.parseFromRawJson(responseData.body());
                     return apiFactory;
                 })
                 .doOnNext(lastResponse::set)
@@ -116,7 +125,11 @@ public class ApiClient extends ApiFactory {
     public Mono<ApiFactory> callAPIPost(String routeName, Map<String, Object> body) {
         connectLib.Logger().INFO(connectLib.LangManager().getMessage(CategoriesType.APICLIENT_CLASS, "call.post", Map.of("routename", routeName)));
 
-        Request r = DataController.getInstance().createRequest(routeName, baseUrl);
+        AtomicReference<Request> requestRef = new AtomicReference<>();
+
+        if (connectLib.StoreAndRetrieve().get(connectLib.StoreAndRetrieve().IS_APP_RUNNING).equals(true)) {
+            requestRef.set(DataController.getInstance().createRequest(routeName, baseUrl));
+        }
 
         record ResponseData(int statusCode, String body) {}
 
@@ -133,7 +146,12 @@ public class ApiClient extends ApiFactory {
 
                     String newStatus = (responseData.statusCode() >= 200 && responseData.statusCode() < 300) ? "success" : "error";
                     try {
-                        DataController.getInstance().updateRequestStatus(r.getId(), newStatus);
+                        Request r = requestRef.get();
+                        if (r != null) {
+                            if (connectLib.StoreAndRetrieve().get(connectLib.StoreAndRetrieve().IS_APP_RUNNING).equals(true)) {
+                                DataController.getInstance().updateRequestStatus(r.getId(), newStatus);
+                            }
+                        }
                     } catch (Exception e) {
                         connectLib.Logger().CRITICAL(connectLib.LangManager().getMessage(CategoriesType.APICLIENT_CLASS, "general.error", Map.of("method", "GET", "exception", e.getMessage())));
                     }
@@ -156,7 +174,10 @@ public class ApiClient extends ApiFactory {
     public Mono<ApiFactory> callAPIPut(String routeName, Map<String, Object> body) {
         connectLib.Logger().INFO(connectLib.LangManager().getMessage(CategoriesType.APICLIENT_CLASS, "call.put", Map.of("routename", routeName)));
 
-        Request r = DataController.getInstance().createRequest(routeName, baseUrl);
+        AtomicReference<Request> requestRef = new AtomicReference<>();
+        if (connectLib.StoreAndRetrieve().get(connectLib.StoreAndRetrieve().IS_APP_RUNNING).equals(true)) {
+            requestRef.set(DataController.getInstance().createRequest(routeName, baseUrl));
+        }
 
         record ResponseData(int statusCode, String body) {}
 
@@ -173,9 +194,14 @@ public class ApiClient extends ApiFactory {
 
                     String newStatus = (responseData.statusCode() >= 200 && responseData.statusCode() < 300) ? "success" : "error";
                     try {
-                        DataController.getInstance().updateRequestStatus(r.getId(), newStatus);
+                        if (connectLib.StoreAndRetrieve().get(connectLib.StoreAndRetrieve().IS_APP_RUNNING).equals(true)) {
+                            Request r = requestRef.get();
+                            if (r != null) {
+                                DataController.getInstance().updateRequestStatus(r.getId(), newStatus);
+                            }
+                        }
                     } catch (Exception e) {
-                        connectLib.Logger().CRITICAL(connectLib.LangManager().getMessage(CategoriesType.APICLIENT_CLASS, "general.error", Map.of("method", "GET", "exception", e.getMessage())));
+                        connectLib.Logger().CRITICAL(connectLib.LangManager().getMessage(CategoriesType.APICLIENT_CLASS, "general.error", Map.of("method", "PUT", "exception", e.getMessage())));
                     }
                 })
                 .map(responseData -> {
@@ -190,13 +216,16 @@ public class ApiClient extends ApiFactory {
     /**
      * Method to call the API with a PATCH request.
      * @param routeName Name of the route to call.
-     * @param body Body of the request (can be null for a request without body).
+     * @param body  Body of the request (can be null for a request without body).
      * @return a Mono that emits the ApiFactory response containing the parsed JSON data.
      */
     public Mono<ApiFactory> callAPIPatch(String routeName, Map<String, Object> body) {
         connectLib.Logger().INFO(connectLib.LangManager().getMessage(CategoriesType.APICLIENT_CLASS, "call.patch", Map.of("routename", routeName)));
 
-        Request r = DataController.getInstance().createRequest(routeName, baseUrl);
+        AtomicReference<Request> requestRef = new AtomicReference<>();
+        if (connectLib.StoreAndRetrieve().get(connectLib.StoreAndRetrieve().IS_APP_RUNNING).equals(true)) {
+            requestRef.set(DataController.getInstance().createRequest(routeName, baseUrl));
+        }
 
         record ResponseData(int statusCode, String body) {}
 
@@ -213,9 +242,14 @@ public class ApiClient extends ApiFactory {
 
                     String newStatus = (responseData.statusCode() >= 200 && responseData.statusCode() < 300) ? "success" : "error";
                     try {
-                        DataController.getInstance().updateRequestStatus(r.getId(), newStatus);
+                        if (connectLib.StoreAndRetrieve().get(connectLib.StoreAndRetrieve().IS_APP_RUNNING).equals(true)) {
+                            Request r = requestRef.get();
+                            if (r != null) {
+                                DataController.getInstance().updateRequestStatus(r.getId(), newStatus);
+                            }
+                        }
                     } catch (Exception e) {
-                        connectLib.Logger().CRITICAL(connectLib.LangManager().getMessage(CategoriesType.APICLIENT_CLASS, "general.error", Map.of("method", "GET", "exception", e.getMessage())));
+                        connectLib.Logger().CRITICAL(connectLib.LangManager().getMessage(CategoriesType.APICLIENT_CLASS, "general.error", Map.of("method", "PATCH", "exception", e.getMessage())));
                     }
                 })
                 .map(responseData -> {
@@ -235,7 +269,10 @@ public class ApiClient extends ApiFactory {
     public Mono<ApiFactory> callAPIDelete(String routeName) {
         connectLib.Logger().INFO(connectLib.LangManager().getMessage(CategoriesType.APICLIENT_CLASS, "call.delete", Map.of("routename", routeName)));
 
-        Request r = DataController.getInstance().createRequest(routeName, baseUrl);
+        AtomicReference<Request> requestRef = new AtomicReference<>();
+        if (connectLib.StoreAndRetrieve().get(connectLib.StoreAndRetrieve().IS_APP_RUNNING).equals(true)) {
+            requestRef.set(DataController.getInstance().createRequest(routeName, baseUrl));
+        }
 
         record ResponseData(int statusCode, String body) {}
 
@@ -251,9 +288,14 @@ public class ApiClient extends ApiFactory {
 
                     String newStatus = (responseData.statusCode() >= 200 && responseData.statusCode() < 300) ? "success" : "error";
                     try {
-                        DataController.getInstance().updateRequestStatus(r.getId(), newStatus);
+                        if (connectLib.StoreAndRetrieve().get(connectLib.StoreAndRetrieve().IS_APP_RUNNING).equals(true)) {
+                            Request r = requestRef.get();
+                            if (r != null) {
+                                DataController.getInstance().updateRequestStatus(r.getId(), newStatus);
+                            }
+                        }
                     } catch (Exception e) {
-                        connectLib.Logger().CRITICAL(connectLib.LangManager().getMessage(CategoriesType.APICLIENT_CLASS, "general.error", Map.of("method", "GET", "exception", e.getMessage())));
+                        connectLib.Logger().CRITICAL(connectLib.LangManager().getMessage(CategoriesType.APICLIENT_CLASS, "general.error", Map.of("method", "DELETE", "exception", e.getMessage())));
                     }
                 })
                 .map(responseData -> {

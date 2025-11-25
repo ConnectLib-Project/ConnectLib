@@ -66,6 +66,7 @@ public class Application implements WebFluxConfigurer {
             app.setDefaultProperties(props);
             app.run();
 
+            connectLib.StoreAndRetrieve().put(connectLib.StoreAndRetrieve().IS_APP_RUNNING, true);
         }).subscribeOn(Schedulers.boundedElastic()).then();
     }
 

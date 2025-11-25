@@ -236,8 +236,8 @@ public class MainTest {
     public void startAppServices() {
         try {
             connectLib.Logger().showLogs();
-            connectLib.init(ResourceType.TEST_RESOURCES, LangType.ENGLISH, TestRoutes.class)
-                    .wanImplement("localhost:3000", "Connectlib3");
+            connectLib.init(ResourceType.TEST_RESOURCES, LangType.ENGLISH, TestRoutes.class);
+                    //.wanImplement("localhost:3000", "Connectlib3");
                     //.webServices(8080, "TestDashboard");
 
             CompletableFuture<ClassheritFromFactory> apiFactoryCompletableFuture = connectLib.JobGetInfos()
@@ -247,7 +247,6 @@ public class MainTest {
                     .thenApply(ClassheritFromFactory::new);
 
             ClassheritFromFactory classheritFromFactory = apiFactoryCompletableFuture.get(5, TimeUnit.SECONDS);
-            System.out.println("Display" + classheritFromFactory.display());
 
             System.out.println("Response: " + classheritFromFactory.getContent());
 
