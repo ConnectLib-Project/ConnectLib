@@ -223,7 +223,7 @@ public class MainTest {
         try {
             connectLib.Logger().showLogs();
             connectLib.init(ResourceType.TEST_RESOURCES, LangType.ENGLISH, TestRoutes.class)
-                            .wanImplement("http://localhost:8080", "TestDashboard");
+                            .wanImplement("http://localhost:3000", "TestDashboard");
 
             Thread.sleep(20000);
 
@@ -236,8 +236,8 @@ public class MainTest {
     public void startAppServices() {
         try {
             connectLib.Logger().showLogs();
-            connectLib.init(ResourceType.TEST_RESOURCES, LangType.ENGLISH, TestRoutes.class);
-                    //.wanImplement("localhost:3000", "Connectlib3");
+            connectLib.init(ResourceType.TEST_RESOURCES, LangType.ENGLISH, TestRoutes.class)
+                    .wanImplement("localhost:3000", "Connectlib3");
                     //.webServices(8080, "TestDashboard");
 
             CompletableFuture<ClassheritFromFactory> apiFactoryCompletableFuture = connectLib.JobGetInfos()
@@ -252,15 +252,14 @@ public class MainTest {
 
             Thread.sleep(10000);
 
-            apiFactoryCompletableFuture = connectLib.JobGetInfos()
-                    .getRoutes(MethodType.GET, TestRoutes.HELLO)
-                    .urlBranch(ExampleUrlBranch.POST_PROD)
-                    .execute()
-                    .thenApply(ClassheritFromFactory::new);
+            CompletableFuture<ApiFactory> apiFactoryCompletableFuture2 = connectLib.JobGetInfos()
+                    .getRoutes(TestCustomVersion.V1_API, MethodType.GET, TestRoutes.REQUEST_TOKEN)
+                    .urlBranch(ExampleUrlBranch.PROD)
+                    .execute();
 
-            ClassheritFromFactory classheritFromFactory2 = apiFactoryCompletableFuture.get(5, TimeUnit.SECONDS);
+            fr.sandro642.github.api.ApiFactory apiFactory = apiFactoryCompletableFuture2.get(5, TimeUnit.SECONDS);
 
-            System.out.println("Response: " + classheritFromFactory2.getContent());
+            System.out.println("Response: " + apiFactory.display());
 
             Thread.sleep(200000);
 

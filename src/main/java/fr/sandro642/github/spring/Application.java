@@ -56,6 +56,7 @@ public class Application implements WebFluxConfigurer {
      * @return a Mono that completes when the application has started
      */
     public Mono<Void> startApplication() {
+        connectLib.StoreAndRetrieve().put(connectLib.StoreAndRetrieve().IS_APP_RUNNING, true);
         return Mono.fromRunnable(() -> {
             SpringApplication app = new SpringApplication(Application.class);
             app.setBannerMode(Banner.Mode.OFF);
@@ -65,8 +66,6 @@ public class Application implements WebFluxConfigurer {
             props.put("logging.level.root", "OFF");
             app.setDefaultProperties(props);
             app.run();
-
-            connectLib.StoreAndRetrieve().put(connectLib.StoreAndRetrieve().IS_APP_RUNNING, true);
         }).subscribeOn(Schedulers.boundedElastic()).then();
     }
 
