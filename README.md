@@ -77,34 +77,6 @@ Imagine an API that doesn't just connect services, but becomes the conductor of 
 
 ---
 
-##  Main Features
-
--  **Centralized connector management**
--  **Automated job execution**
--  **Extensible and modular**
--  **Detailed logs and monitoring**
--  **Built-in security**
-
----
-
-##  Quick Start
-
-1. **Clone the project**
-   ```bash
-   git clone https://github.com/your-username/ConnectLib.git
-   cd ConnectLib
-   ```
-2. **Compile**
-   ```bash
-   ./gradlew build
-   ```
-3. **Run an example**
-   ```bash
-   java -jar YourJarFile.jar
-   ```
-
----
-
 ##  Usage Example
 
 More examples HERE: [ExampleUsages.java](src/main/java/fr/sandro642/github/example/ExampleUsages.java)
