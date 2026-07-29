@@ -1,7 +1,5 @@
 <div align="center">
 
-![ConnectLib Banner](./banner.png)
-
 <br>
 
 ![Version](https://img.shields.io/github/v/tag/Sandro642/ConnectLib?label=Version&style=for-the-badge&color=blue&logo=github)
@@ -12,15 +10,12 @@
 
 ---
 
-[ConnectLib Website](https://connectlib.xyz/)
-[ConnectLib Documentation](https://docs.connectlib.xyz/)
 [ConnectLib Javadoc](https://sandro642.github.io/connectlib/javadoc/)
 
 ---
 
 Welcome to **ConnectLib**: the universal gateway to connect, automate and orchestrate your data flows!
 And if you thought APIs were complicated, think again! With ConnectLib, it's like playing with Lego: simple, intuitive and powerful.
-> For information, this library is not intended to be used for Minecraft, it is used professionally in a Java project.
 
 ---
 
@@ -46,23 +41,6 @@ Stay informed about the latest features and updates of ConnectLib.
 
 - Advanced debugging system. Available soon.
 [readme.md](readme.md)
----
-
-Changelog:
-
-```java
- - [0.1.3.9-SNAPSHOT]: Added data serialization for perfect data compatibility with HOOK.
- - [0.1.3.17-SNAPSHOT]: Removal of data serialization... Still available from the /feature/serializer branch. Useful if processes are not initialized in the same environment.
- - [0.1.9.2-STABLE]: Security patch using the getRoutes method using an enumeration class for routeName: StackOverflowError... + Creation of maps according to the desired variable type.
- - [0.2.0-STABLE]: Wow, arrival of 0.2.0 in such a short time? There were things to do on this project ;)
- - [0.2.2-STABLE]: Added log creation. 
- - [0.2.6.1-STABLE]: Patch dû à la compatibilité avec la création de log et le Hook Minecraft.
- - [0.2.6.4-STABLE]: Added asynchronous job execution, allowing you to run tasks in the background without blocking your main application thread.
- - [0.2.7.2-STABLE]: Remove implementation Project Reactor
- - [0.2.9-STABLE]: Added support query variables in routes, allowing you to pass parameters directly in the URL.
- - [0.4.0-STABLE]: Web implementation, now you can have a dashboard to see your connectors and jobs.
- - [0.4.8-STABLE]: Add Wan Implementation with ConnectLib Dashboard.
-```
 
 ---
 
@@ -88,14 +66,6 @@ More examples HERE: [ExampleUsages.java](src/main/java/fr/sandro642/github/examp
 - `src/main/java/fr/sandro642/github/` : main source code
 - `src/test/java/fr/sandro642/github/test/` : unit tests
 - `build.gradle` : Gradle configuration
-
----
-
-##  Contributing
-
-1. Fork the repo
-2. Create a branch (`feature/my-feature`)
-3. Push your changes and open a PR
 
 ---
 
